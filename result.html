@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Query Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="results-container">
+        <h1>Query Results</h1>
+        <p><strong>Executed Query:</strong></p>
+        <pre>{{ query }}</pre>
+        
+        <table>
+            <thead>
+                <tr>
+                    {% for column in columns %}
+                    <th>{{ column }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% if rows %}
+                    {% for row in rows %}
+                    <tr>
+                        {% for value in row %}
+                        <td>{{ value }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="{{ columns|length }}">No data found</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+        
+        <div class="back-button">
+            <a href="{{ url_for('index') }}">Back to Query Form</a>
+        </div>
+    </div>
+</body>
+</html>
